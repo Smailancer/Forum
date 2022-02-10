@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
 
+    before_action :authenticate_u!, except: [:index, :show]
     before_action :find_message, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -11,11 +12,11 @@ class MessagesController < ApplicationController
     end
 
     def new
-        @message = Message.new 
+        @message = current_u.messages.build
     end
 
     def create
-        @message = Message.new(message_params) 
+        @message = current_u.messages.build(message_params) 
             if @message.save 
                 redirect_to root_path
             else  
@@ -29,7 +30,7 @@ class MessagesController < ApplicationController
 
     def update
         if @message.update(message_params)
-            redirect_to message_path
+            redirect_to root_path
         else  
             render 'edit'
         end
