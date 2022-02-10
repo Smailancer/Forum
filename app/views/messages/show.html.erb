@@ -5,6 +5,8 @@
         <p class="message-desc" > <%= @message.description %> </p>
         <div class="link btn-group" >
             <%= link_to "Back", root_path, class: "btn btn-default" %>
+            <%= link_to "Fix", edit_message_path, class: "btn btn-info" %>
+            <%= link_to "Trash it", message_path, method: :delete, data: {confirm: "Are you sur ?"}, class: "btn btn-danger" %>
         </div>
     </div>
 </div>
